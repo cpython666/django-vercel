@@ -119,3 +119,25 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 自定义配置
+
+LANGUAGE_CODE = 'zh-hans'
+TIME_ZONE = 'Asia/Shanghai'
+USE_I18N = True
+USE_TZ = False
+
+import dj_database_url
+
+from dotenv import load_dotenv
+import os
+# 加载 .env 文件中的环境变量
+load_dotenv()
+# 获取环境变量的值
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv("DB_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
